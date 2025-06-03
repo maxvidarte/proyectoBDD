@@ -1,0 +1,430 @@
+:root{
+    --primario: #9c27b0;
+    --primarioOscuro: #89119D;
+    --secundario: #FFCE00;
+    --secundarioOscuro: rgb(233,287,2);
+    --blanco: #FFF;
+    --negro: #000; 
+    --turquesa:#0097b2;
+
+    --fuentePrincipal: 'Staatliches', cursive;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;   
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body{
+    background-color: var(--primario);
+    font-size: 1.6rem;
+    line-height: 1.5;
+}
+
+p{
+    font-size: 1.8rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--blanco);
+}
+
+a{
+    text-decoration: none;
+}
+
+img{
+    width: 30rem;
+}
+
+.contenedor{
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+h1,h2{
+    text-align: center;
+    color:var(--secundario);
+    font-family: var(--fuentePrincipal);
+}
+
+h1{
+    font-size: 4rem;
+}
+
+h2{
+    font-size: 3.2rem;
+}
+
+h3{
+    font-size: 2.4rem;
+    color:var(--secundario);
+    font-family: var(--fuentePrincipal);
+}
+h4{
+    font-size: 1.6rem;
+    color:var(--secundario);
+    font-family: var(--fuentePrincipal);
+}
+/** header */
+
+.header{
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.header__logo{
+    margin:3rem 0;
+}   
+
+.footer{
+    background-color: var(--primarioOscuro);
+    padding: 1rem 0;
+    margin-top: 2rem;
+}
+
+.footer__texto{
+    font-family: var(--fuentePrincipal);
+    text-align: center;
+}
+.navegacion{
+    background-color: var(--primarioOscuro);
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.navegacion__enlace{
+    font-family: var(--fuentePrincipal);
+    color: var(--blanco);
+    font-size: 3rem;
+}
+
+.navegacion__enlace--activo,
+.navegacion__enlace:hover{
+    color:var(--turquesa);
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+    
+    
+}
+
+.grid img{
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+}
+
+@media (min-width:768px){ 
+    .grid{
+        
+        grid-template-columns: repeat(4,1fr);
+        
+    }
+
+}
+
+.cartelera-text{
+    display: flex;
+    justify-content: center;
+    color: var(--turquesa);
+}
+
+@media (min-width:768px){ 
+    .cartelera-text{
+    display: flex;
+    justify-content: left;
+    color: var(--turquesa);
+    }
+}
+
+
+
+.contenedor{
+   /*padding: 0 6rem;
+    justify-content: space-between;*/
+    padding-right: var(--bs-gutter-x, .75rem);
+    padding-left: var(--bs-gutter-x, .75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+/*** Pagina de la pelicula */
+@media (min-width:768px){ 
+  .pelicula{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap: 2rem;
+  }
+}
+
+.formulario{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.formulario_horario{
+    border-color: var(--primarioOscuro);
+    border-width: 1rem;
+    border-style: solid;
+
+    
+    background-color: transparent;
+    color: var(--blanco);
+    font-size: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 1rem;
+    appearance: none;
+}
+/***************************/ 
+.formulario{
+    display: flex;
+    align-items: center;
+}
+.formulario_horario option{
+    background-color: var(--blanco);
+    color: var(--negro);
+}
+
+
+/***Tema de los asientos*****/
+.contenedor_asientos{
+    perspective: 1000px;
+    /*margin-bottom: 10px;*/
+}
+
+.asiento.seleccionado{
+    background-color: var(--secundario);
+}
+.asiento.ocupado{
+    background-color: var(--blanco);
+}
+
+.asiento:nth-of-type(2){
+    margin-right: 18px;
+}
+
+.asiento:nth-last-of-type(2){
+    margin-left: 18px;
+}
+
+.asiento:not(.ocupado):hover{
+    cursor:pointer;
+    transform: scale(1.2);
+}
+.ver_caso .asiento:not(.ocupado):hover{
+    cursor: default;
+    transform: scale(1);
+} 
+
+.ver_caso{
+    background: rgba(0,0,0,0.1);
+    padding: 5px 10px;
+    border-radius: 5px;
+    color:#777;
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ver_caso li{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+}
+
+.ver_caso li small{
+    margin-left: 2px;
+
+}
+
+.columna{
+    display: flex;
+}
+
+#pantalla {
+    background-color: #fff;
+    height: 120px;
+    width: 100%;
+    margin: 15px 0;
+    transform: rotateX(-48deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+    
+  }
+  
+  p.alerta_asientos{
+      margin: 5px 0;
+  }
+  
+  p.alerta_asientos span{
+      color: rgb(158, 248, 158);
+  }
+
+  .mapa_asientos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  
+  @media (max-width:768px){ 
+    .info_adicional {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    #tt_sipnosis{
+        margin:2rem;
+    }
+    .sipnosis_pelicula p{
+        margin:2rem;
+        
+    }
+  }
+   .sipnosis_pelicula{
+    text-align: justify;
+   }
+  @media (min-width:768px){ 
+    .pelicula_imagen{
+        height: 283px;
+        width: 179px;
+      }
+      
+      .info_adicional{
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 20px; /* espacio entre la imagen y el texto */
+      }
+  }
+  
+ .info_adicional h3{
+    display: flex;
+    flex-direction: column;
+    color: #FFA500;
+    margin: 0;
+    font-size: 1.5em;
+    font-family: sa;
+  }
+  .texto_info {
+    display: flex;
+    flex-direction: column;
+}
+/*** Etiquetado de pelicula**/
+  .etiquetas_pelicula {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .etiqueta {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .etiqueta.clasificacion {
+    background-color: #999; /* Gris */
+  }
+  
+  .etiqueta.duracion {
+    background-color: #555; /* Gris oscuro */
+  }
+  
+  .etiqueta.genero {
+    background-color: #1976d2; /* Azul fuerte */
+  }
+ /*** Etiquetado de pelicula**/
+
+ .navegacion.producto{
+    margin-bottom: 5rem;
+ }
+
+ #tt_sipnosis{
+    color:  #FFA500;
+    font-family: sa;
+ }
+/***************************/
+.listo_para_reservar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn_reservar {
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 15px;
+  cursor: pointer;
+  color: #333;
+  transition: background-color 0.3s ease;
+}
+
+.btn_reservar:hover {
+  background-color: #e6b800;
+}
+
+
+/***************************/
+.formulario_horario{
+  
+    width: 358.66px;
+    margin-top: 10px;
+}
+.formulario_horario {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    color: white;
+    background-color: rebeccapurple;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.fila {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.fila_letra {
+    width: 20px;
+    margin-right: 8px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.asiento {
+    width: 30px;
+    height: 30px;
+    background-color: #4da3ff;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 2px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
