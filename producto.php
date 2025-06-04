@@ -19,7 +19,7 @@ if (!$pelicula) {
 
 
 //////////////////
-
+/*
 $query_fhorario = "
     SELECT horario.id AS id_horario, horario.inicio, horario.final
     FROM funcion
@@ -27,6 +27,16 @@ $query_fhorario = "
     WHERE funcion.peliculaId = '$id'
 ";
 $result_fhorario = mysqli_query($conexion, $query_fhorario);
+*/
+
+$query_funciones = "
+    SELECT funcion.id AS funcionId, horario.id AS id_horario, horario.inicio, horario.final
+    FROM funcion
+    INNER JOIN horario ON funcion.horarioId = horario.id
+    WHERE funcion.peliculaId = '$id'
+";
+$result_funciones = mysqli_query($conexion, $query_funciones);
+
 ?>
 
 <!DOCTYPE html>
@@ -125,8 +135,10 @@ $result_fhorario = mysqli_query($conexion, $query_fhorario);
                     <form class="formulario">
                         <select class="formulario_horario" name="horarioId">
                             <option disabled selected>--Seleccionar Horario--</option>
-                            <?php while ($horario = mysqli_fetch_assoc($result_fhorario)): ?>
-                                <option value="<?= $horario['id_horario'] ?>">
+                            <?php while ($horario= mysqli_fetch_assoc($result_funciones)): ?>
+                                <option 
+                                    value="<?= $horario['id_horario'] ?>" 
+                                    data-funcionid="<?= $horario['funcionId'] ?>">
                                     <?= $horario['inicio'] ?> - <?= $horario['final'] ?>
                                 </option>
                             <?php endwhile; ?>

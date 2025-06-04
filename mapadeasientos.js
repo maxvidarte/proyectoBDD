@@ -52,4 +52,39 @@ document.addEventListener("DOMContentLoaded", function () {
 
         contenedor.appendChild(fila);
     }
+
+    document.querySelector('.btn_reservar').addEventListener('click', async () => {
+    const horarioSelect = document.querySelector('select[name="horarioId"]');
+    const funcionId = horarioSelect.selectedOptions[0]?.dataset.funcionid;
+    if (!funcionId) return alert("Debes seleccionar un horario.");
+
+    const response = await fetch('/php/session.php');
+    const sessionData = await response.json();
+    if (!sessionData.logueado) {
+        return alert("Debes iniciar sesión para reservar.");
+    }
+
+    const clienteId = sessionData.clienteId;
+    const precioPorAsiento = 50;
+    const cantidad = seleccionados.length;
+    const total = cantidad * precioPorAsiento;
+
+    const datosReserva = {
+        clienteId,
+        funcionId,
+        cantidad,
+        total,
+        asientos: seleccionados // ej. ["A5", "B3"]
+    };
+
+    const res = await fetch('/php/insertar_reserva.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(datosReserva)
+    });
+
+    const resultado = await res.text();
+    alert(resultado);
+});
+
 });
