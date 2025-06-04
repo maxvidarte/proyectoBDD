@@ -23,7 +23,7 @@ $reservaId = $stmt->insert_id;
 $stmt->close();
 
 // Insertar los asientos
-$queryAsiento = "INSERT INTO asiento (id, reservaId, fila, columna) VALUES (?, ?, ?, ?)";
+$queryAsiento = "INSERT INTO asiento (id, reservaId, funcionId, fila, columna) VALUES (?, ?, ?, ?, ?)";
 $stmtAsiento = $conexion->prepare($queryAsiento);
 
 foreach ($asientos as $asiento) {
@@ -31,9 +31,9 @@ foreach ($asientos as $asiento) {
     if (!$partes) continue;
     $fila = $partes[1];
     $columna = intval($partes[2]);
-    $idAsiento = $fila . $columna;
+    $idAsiento = $fila . $columna . "-" . $funcionId;
 
-    $stmtAsiento->bind_param("sisi", $idAsiento, $reservaId, $fila, $columna);
+    $stmtAsiento->bind_param("siisi", $idAsiento, $reservaId, $funcionId, $fila, $columna);
     $stmtAsiento->execute();
 }
 

@@ -52,21 +52,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
         contenedor.appendChild(fila);
     }
-
+////////////////ESTA SECCION DE CODIGO CUMPLE CON RESERVAR Y ENVIAR A insertar_reserva.php
     document.querySelector('.btn_reservar').addEventListener('click', async () => {
     const horarioSelect = document.querySelector('select[name="horarioId"]');
     const funcionId = horarioSelect.selectedOptions[0]?.dataset.funcionid;
     if (!funcionId) return alert("Debes seleccionar un horario.");
 
+    const cantidad = seleccionados.length;
+    if (cantidad === 0) {
+        alert("Debes seleccionar al menos un asiento para continuar.");
+        return;
+    }
+
     const response = await fetch('/php/session.php');
     const sessionData = await response.json();
     if (!sessionData.logueado) {
-        return alert("Debes iniciar sesión para reservar.");
+        alert("Debes iniciar sesión para reservar.");
+        window.location.href = "/login/login.html";
+        return;
     }
 
     const clienteId = sessionData.clienteId;
     const precioPorAsiento = 50;
-    const cantidad = seleccionados.length;
     const total = cantidad * precioPorAsiento;
 
     const datosReserva = {
