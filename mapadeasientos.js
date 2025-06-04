@@ -1,57 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const filas = 6; // A-J
-    const columnas = 8; // 1-13
+    const filas = 7;
+    const columnas = 12;
     const contenedor = document.getElementById("mapa_asientos");
     const contador = document.getElementById("count");
-
-    // Asientos ocupados: [filaLetra, columnaNumero]
-    const asientosOcupados = [
-        ['A', 5], ['A', 6],
-        ['E', 2], ['F', 2], ['F', 3], ['F', 4], ['F', 5], ['F', 6], ['F', 7], ['F', 8], ['F', 9],
-        ['H', 4], ['H', 5], ['H', 6], ['H', 7], ['H', 8]
-    ];
+    const horarioSelect = document.querySelector('select[name="horarioId"]');
 
     let seleccionados = [];
+    let asientosOcupados = [];
 
     function letraFila(i) {
-        return String.fromCharCode(65 + i); // A–J
+        return String.fromCharCode(65 + i);
     }
 
-    for (let i = 0; i < filas; i++) {
-        const filaLetra = letraFila(i);
-        const fila = document.createElement("div");
-        fila.classList.add("fila");
+    function renderMapa() {
+        contenedor.innerHTML = "";
+        seleccionados = [];
+        contador.textContent = 0;
 
-        const etiqueta = document.createElement("div");
-        etiqueta.classList.add("fila_letra");
-        etiqueta.textContent = filaLetra;
-        fila.appendChild(etiqueta);
+        for (let i = 0; i < filas; i++) {
+            const filaLetra = letraFila(i);
+            const fila = document.createElement("div");
+            fila.classList.add("fila");
 
-        for (let j = 1; j <= columnas; j++) {
-            const asiento = document.createElement("div");
-            asiento.classList.add("asiento");
-            asiento.textContent = j;
+            const etiqueta = document.createElement("div");
+            etiqueta.classList.add("fila_letra");
+            etiqueta.textContent = filaLetra;
+            fila.appendChild(etiqueta);
 
-            if (asientosOcupados.some(([f, c]) => f === filaLetra && c === j)) {
-                asiento.classList.add("ocupado");
-            } else {
-                asiento.addEventListener("click", () => {
-                    asiento.classList.toggle("seleccionado");
-                    const key = `${filaLetra}${j}`;
-                    if (seleccionados.includes(key)) {
-                        seleccionados = seleccionados.filter(item => item !== key);
-                    } else {
-                        seleccionados.push(key);
-                    }
-                    contador.textContent = seleccionados.length;
-                });
+            for (let j = 1; j <= columnas; j++) {
+                const asiento = document.createElement("div");
+                asiento.classList.add("asiento");
+                asiento.textContent = j;
+
+                if (asientosOcupados.some(([f, c]) => f === filaLetra && c === j)) {
+                    asiento.classList.add("ocupado");
+                } else {
+                    asiento.addEventListener("click", () => {
+                        asiento.classList.toggle("seleccionado");
+                        const key = `${filaLetra}${j}`;
+                        if (seleccionados.includes(key)) {
+                            seleccionados = seleccionados.filter(item => item !== key);
+                        } else {
+                            seleccionados.push(key);
+                        }
+                        contador.textContent = seleccionados.length;
+                    });
+                }
+
+                fila.appendChild(asiento);
             }
 
-            fila.appendChild(asiento);
+            contenedor.appendChild(fila);
         }
-
-        contenedor.appendChild(fila);
     }
+
+    // Cargar asientos ocupados al seleccionar horario
+    horarioSelect.addEventListener('change', async () => {
+        const selectedOption = horarioSelect.selectedOptions[0];
+        const funcionId = selectedOption.dataset.funcionid;
+
+        if (!funcionId) return;
+
+        try {
+            const res = await fetch(`php/asientos_ocupados.php?funcionId=${funcionId}`);
+            const data = await res.json();
+            asientosOcupados = data;
+            renderMapa();
+        } catch (error) {
+            console.error("Error al cargar asientos ocupados:", error);
+        }
+    });
 ////////////////ESTA SECCION DE CODIGO CUMPLE CON RESERVAR Y ENVIAR A insertar_reserva.php
     document.querySelector('.btn_reservar').addEventListener('click', async () => {
     const horarioSelect = document.querySelector('select[name="horarioId"]');
