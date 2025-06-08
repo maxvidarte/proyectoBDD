@@ -18,17 +18,6 @@ if (!$pelicula) {
 }
 
 
-//////////////////
-/*
-$query_fhorario = "
-    SELECT horario.id AS id_horario, horario.inicio, horario.final
-    FROM funcion
-    INNER JOIN horario ON funcion.horarioId = horario.id
-    WHERE funcion.peliculaId = '$id'
-";
-$result_fhorario = mysqli_query($conexion, $query_fhorario);
-*/
-
 $query_funciones = "
     SELECT funcion.id AS funcionId, horario.id AS id_horario, horario.inicio, horario.final
     FROM funcion

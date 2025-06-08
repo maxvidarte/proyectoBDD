@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CINEMAFORDEVS</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Staatliches&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/../css/ticket.css">
+</head>
+<body>
+  <header class="header">
+        <a href="/../main.php">
+            <img class="header__logo" src="/../img/titulo.png" alt="Logotipo"> 
+        </a>
+  </header>  
+
+
+  <div class="ticket-box" style="display: none;">
+  <h2> Ticket Generado</h2>
+  <div id="ticket-content" class="ticket-table">
+    <!-- Contenido dinámico aquí -->
+  </div>
+  <div class="ticket-buttons">
+    <button id="descargar-pdf">Descargar PDF</button>
+    <button onclick="window.location = document.referrer">Regresar</button>
+  </div>
+</div>
+
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const reservaId = urlParams.get('reservaId');
+
+  fetch(`/php/api_datos_ticket.php?reservaId=${reservaId}`)
+    .then(res => res.json())
+    .then(data => {
+      const rows = [
+        ["Cod. Reserva", data.id],
+        ["Cliente", data.nombre],
+        ["Película", data.pelicula],
+        ["Sala", data.sala],
+        //["Fecha", data.fecha],
+        ["Hora", data.horario],
+        ["Asientos", data.asientos.join(', ')],
+        ["Total", `S/ ${parseFloat(data.total).toFixed(2)}`]
+      ];
+
+      const table = rows.map(row => `
+        <div class="ticket-row">
+          <div class="ticket-label">${row[0]}</div>
+          <div class="ticket-data">${row[1]}</div>
+        </div>
+      `).join('');
+
+      document.getElementById('ticket-content').innerHTML = table;
+
+      document.querySelector('.ticket-box').style.display = 'block';
+    });
+
+  document.getElementById('descargar-pdf').addEventListener('click', () => {
+    window.open(`/php/generar_ticket.php?reservaId=${reservaId}`, '_blank');
+  });
+</script>
+
+
+<footer class="footer">
+        <p class="footer__texto">CINEMA FOR DEVS - TODO LOS DERECHOS RESERVADOS 2023</p>
+</footer>
+</body>
+</html>

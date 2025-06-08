@@ -38,5 +38,7 @@ foreach ($asientos as $asiento) {
 }
 
 $stmtAsiento->close();
-echo "Reserva registrada con éxito.";
+
+echo json_encode(["success" => true, "reservaId" => $reservaId]);
+
 ?>

@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         funcionId,
         cantidad,
         total,
-        asientos: seleccionados // ej. ["A5", "B3"]
+        asientos: seleccionados 
     };
 
     const res = await fetch('/php/insertar_reserva.php', {
@@ -108,8 +108,13 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify(datosReserva)
     });
 
-    const resultado = await res.text();
-    alert(resultado);
+    const resultado = await res.json();
+
+    if (resultado.success) {
+        window.location.href = `/ticket/ticket.html?reservaId=${resultado.reservaId}`;
+    } else {
+        alert("Error al registrar la reserva.");
+    }
 });
 
 });
