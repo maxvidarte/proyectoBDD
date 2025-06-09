@@ -41,14 +41,14 @@ $result_funciones = mysqli_query($conexion, $query_funciones);
 </head>
 <body>
     <header class="header">
-        <a href="main.php">
+        <a href="index.php">
             <img class="header__logo" src="img/titulo.png" alt="Logotipo"> 
         </a>
     </header>
 
     <nav class="navegacion producto">
         
-        <a class="navegacion__enlace " href="main.php"> Cartelera </a>
+        <a class="navegacion__enlace " href="index.php"> Cartelera </a>
         <a class="navegacion__enlace " href="nosotros.html"> Nosotros</a>
         <script src="login/showLogin.js"></script>
     </nav>

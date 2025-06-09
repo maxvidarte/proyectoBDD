@@ -18,14 +18,14 @@ $result = mysqli_query($conexion, "SELECT * FROM pelicula");
 </head>
 <body>
     <header class="header">
-        <a href="main.php">
+        <a href="index.php">
             <img class="header__logo" src="img/titulo.png" alt="Logotipo"> 
         </a>
         
     </header>
 
     <nav class="navegacion">
-        <a class="navegacion__enlace navegacion__enlace--activo" href="main.php"> Cartelera </a>
+        <a class="navegacion__enlace navegacion__enlace--activo" href="index.php"> Cartelera </a>
         <a class="navegacion__enlace" href="nosotros.html"> Nosotros</a>
         <script src="login/showLogin.js"></script>
     </nav>

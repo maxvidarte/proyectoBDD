@@ -12,7 +12,7 @@ $resultado=mysqli_query($conexion,$consulta);
 if($fila=mysqli_fetch_assoc($resultado)){
     $_SESSION['nombres']=$fila['nombres'];
     $_SESSION['clienteId']=$fila['id'];
-    header("location:/../main.php");
+    header("location:/../index.php");
 }
 else{
     echo "Error en la autenticacion";

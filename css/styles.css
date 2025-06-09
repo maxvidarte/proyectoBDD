@@ -46,7 +46,7 @@ img{
 
 h1,h2{
     text-align: center;
-    color:var(--secundario);
+    color:var(--turquesa);
     font-family: var(--fuentePrincipal);
 }
 
