@@ -2,6 +2,6 @@
 session_start();
 session_unset();  // elimina todas las variables de sesión
 session_destroy(); // destruye la sesión
-header("Location: /../main.php"); // redirige al login
+header("Location: /../index.php"); // redirige al index
 exit();
 ?>
