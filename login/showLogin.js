@@ -38,8 +38,20 @@ fetch('/php/session.php')
     enlace.classList.add('navegacion__enlace'); // o .usuario-logueado si usas un estilo distinto
 
     if (data.logueado) {
-      enlace.href = '/php/logout.php';
       
+      // Enlace al historial
+      const historial = document.createElement('a');
+      historial.href = '/php/historial.php';
+      historial.textContent = ' Historial';
+      historial.classList.add('navegacion__enlace');
+      // Verificar si estamos en la página de historial
+        if (window.location.pathname.includes('historial.php')) {
+          historial.classList.add('navegacion__enlace--activo');
+        }
+      contenedor.append(historial);
+
+      // Enlace al cerrar sesión con saludo
+      enlace.href = '/php/logout.php';
       enlace.textContent = ` Hi, ${data.nombres}`;
       enlace.classList.add('usuario-logueado');
 
